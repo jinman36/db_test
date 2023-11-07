@@ -73,7 +73,8 @@
 -- COMMAND ----------
 
 -- TODO
-<FILL_IN>
+CREATE Table events_raw
+(key BINARY, offset LONG, partition INTEGER, timestamp LONG, topic STRING, value BINARY )
 
 -- COMMAND ----------
 
@@ -116,7 +117,8 @@
 -- COMMAND ----------
 
 -- TODO
-<FILL_IN>
+CREATE OR REPLACE TABLE events_raw AS
+SELECT * from events_json
 
 -- COMMAND ----------
 
@@ -130,7 +132,11 @@
 -- COMMAND ----------
 
 -- TODO
-<FILL_IN>
+select * from events_raw
+
+-- COMMAND ----------
+
+DESCRIBE EXTENDED events_raw
 
 -- COMMAND ----------
 
@@ -173,7 +179,11 @@
 -- COMMAND ----------
 
 -- TODO
-<FILL_IN> ${da.paths.datasets}/ecommerce/raw/item-lookup
+CREATE OR REPLACE TABLE item_lookup 
+AS SELECT * FROM parquet.`${da.paths.datasets}/ecommerce/raw/item-lookup`;
+
+select * from item_lookup
+
 
 -- COMMAND ----------
 
