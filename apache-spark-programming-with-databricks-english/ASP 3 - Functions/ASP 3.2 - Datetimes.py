@@ -42,6 +42,8 @@
 from pyspark.sql.functions import col
 
 df = spark.read.format("delta").load(DA.paths.events).select("user_id", col("event_timestamp").alias("timestamp"))
+# df = spark.read.format("delta").load(DA.paths.events)
+
 display(df)
 
 # COMMAND ----------
@@ -141,9 +143,9 @@ from pyspark.sql.functions import date_format
 
 formatted_df = (timestamp_df
                 .withColumn("date string", date_format("timestamp", "MMMM dd, yyyy"))
-                .withColumn("time string", date_format("timestamp", "HH:mm:ss.SSSSSS"))
+                .withColumn("time string", date_format("timestamp", "HH:mm:ss.SSSSSSSSS"))
                )
-display(formatted_df)
+display(formatted_df.limit(3))
 
 # COMMAND ----------
 
