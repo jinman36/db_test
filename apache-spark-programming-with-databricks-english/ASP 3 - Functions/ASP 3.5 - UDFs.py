@@ -197,7 +197,7 @@ from pyspark.sql.functions import pandas_udf
 # We have a string input/output
 @pandas_udf("string")
 def vectorized_udf(email: pd.Series) -> pd.Series:
-    return email.str[0]
+    return email.str[:2]
 
 # Alternatively
 # def vectorized_udf(email: pd.Series) -> pd.Series:
@@ -225,7 +225,7 @@ spark.udf.register("sql_vectorized_udf", vectorized_udf)
 
 # MAGIC %sql
 # MAGIC -- Use the Pandas UDF from SQL
-# MAGIC SELECT sql_vectorized_udf(email) AS firstLetter FROM sales
+# MAGIC SELECT sql_vectorized_udf(email) AS firstLetter FROM sales ORDER BY firstLetter;
 
 # COMMAND ----------
 
